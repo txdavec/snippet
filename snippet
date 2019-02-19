@@ -1,0 +1,108 @@
+#!/bin/bash
+#-------------------------------------------------------------------------------
+# Display code snippets for various languages
+# Created in 2019 by Dave Chouinard
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+function_ansible () { 
+  case $1 in
+  copy)
+    cat << EOF
+- name: example copying file with owner and permissions
+  copy:
+    src: /srv/myfiles/foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: 0644"
+EOF
+    ;;
+  *)
+    printf "unknown ansible snippet: $1\n"
+    exit 1
+    ;;
+  esac
+} 
+
+#-------------------------------------------------------------------------------
+function_bash () { 
+  case $1 in
+  case)
+    cat << "EOF"
+case $VAR in
+x)
+  command...
+  ;;
+*)
+  echo "unkown option"
+  exit 1
+  ;;
+esac
+EOF
+  ;;
+  *)
+    printf "unknown bash snippet: $1\n"
+    exit 1
+    ;;
+  esac
+}
+
+#-------------------------------------------------------------------------------
+function_markdown () { 
+  case $1 in
+  link)
+    cat << EOF
+[link text](URL)
+EOF
+  ;;
+  image)
+    cat << EOF
+![](URL "hover text")
+EOF
+  ;;
+  *)
+    printf "unknown markdown snippet: $1\n"
+    exit 1
+    ;;
+  esac
+}
+
+#-------------------------------------------------------------------------------
+function_python () { 
+  case $1 in
+  print)
+  cat << EOF
+print "He's got %s eyes and %s hair." % (my_eyes, my_hair)
+print "Number is: %d." % my_number
+print '%.2f' % my_float
+EOF
+  ;;
+  *)
+    printf "unknown python snippet: $1\n"
+    exit 1
+    ;;
+  esac
+}
+
+#-------------------------------------------------------------------------------
+# Handle user options and call the associated function
+#-------------------------------------------------------------------------------
+case $1 in
+a)
+  function_ansible "$2"
+  ;;
+b)
+  function_bash "$2"
+  ;;
+m)
+  function_markdown "$2"
+  ;;
+p)
+  function_python "$2"
+  ;;
+*)
+  printf "unknown option: $1\n"
+  exit 1
+  ;;
+esac
