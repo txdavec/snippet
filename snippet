@@ -61,6 +61,11 @@ EOF
 ![](URL "hover text")
 EOF
   ;;
+  task)
+  cat << EOF
+- [ ] task 1
+EOF
+  ;;
   *)
     printf "unknown markdown snippet: $1\n"
     exit 1
