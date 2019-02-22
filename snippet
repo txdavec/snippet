@@ -18,6 +18,18 @@ function_ansible () {
     mode: 0644"
 EOF
     ;;
+  yum)
+    cat << EOF
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - httpd
+    - httpd-tools
+EOF
+    ;;
   *)
     printf "unknown ansible snippet: $1\n"
     exit 1
