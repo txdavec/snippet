@@ -63,14 +63,28 @@ EOF
 #-------------------------------------------------------------------------------
 function_markdown () { 
   case $1 in
+  image)
+    cat << EOF
+![](URL "hover text")
+EOF
+  ;;
   link)
     cat << EOF
 [link text](URL)
 EOF
   ;;
-  image)
+  list)
     cat << EOF
-![](URL "hover text")
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
+EOF
+  ;;
+  table)
+  cat << EOF
+Normal | Center | Right
+--- | :---: | ---:
+normal text | center text | right text
 EOF
   ;;
   task)
