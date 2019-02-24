@@ -76,6 +76,13 @@ esac
 #-------------------------------------------------------------------------------
 function_markdown () { 
 case $1 in
+  collapsible)
+    cat << EOF
+<details><summary>click here</summary>
+hidden text here
+</details>
+EOF
+    ;;
   image)
     cat << EOF
 ![](URL "hover text")
