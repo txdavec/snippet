@@ -6,7 +6,7 @@
 
 #-------------------------------------------------------------------------------
 function_ansible () { 
-  case $1 in
+case $1 in
   copy)
     cat << EOF
 - name: example copying file with owner and permissions
@@ -16,6 +16,19 @@ function_ansible () {
     owner: foo
     group: foo
     mode: 0644"
+EOF
+    ;;
+  cron)
+    cat << EOF
+- name: Creates a cron file under /etc/cron.d
+  cron:
+    name: yum autoupdate
+    weekday: 2
+    minute: 0
+    hour: 12
+    user: root
+    job: "YUMINTERACTIVE=0 /usr/sbin/yum-autoupdate"
+    cron_file: ansible_yum-autoupdate
 EOF
     ;;
   yum)
@@ -34,12 +47,12 @@ EOF
     printf "unknown ansible snippet: $1\n"
     exit 1
     ;;
-  esac
+esac
 } 
 
 #-------------------------------------------------------------------------------
 function_bash () { 
-  case $1 in
+case $1 in
   case)
     cat << "EOF"
 case $VAR in
@@ -57,29 +70,29 @@ EOF
     printf "unknown bash snippet: $1\n"
     exit 1
     ;;
-  esac
+esac
 }
 
 #-------------------------------------------------------------------------------
 function_markdown () { 
-  case $1 in
+case $1 in
   image)
     cat << EOF
 ![](URL "hover text")
 EOF
-  ;;
+    ;;
   link)
     cat << EOF
 [link text](URL)
 EOF
-  ;;
+    ;;
   list)
     cat << EOF
 * Unordered list can use asterisks
 - Or minuses
 + Or pluses
 EOF
-  ;;
+    ;;
   table)
   cat << EOF
 Normal | Center | Right
@@ -91,29 +104,29 @@ EOF
   cat << EOF
 - [ ] task 1
 EOF
-  ;;
+    ;;
   *)
     printf "unknown markdown snippet: $1\n"
     exit 1
     ;;
-  esac
+esac
 }
 
 #-------------------------------------------------------------------------------
 function_python () { 
-  case $1 in
+case $1 in
   print)
   cat << EOF
 print "He's got %s eyes and %s hair." % (my_eyes, my_hair)
 print "Number is: %d." % my_number
 print '%.2f' % my_float
 EOF
-  ;;
+    ;;
   *)
     printf "unknown python snippet: $1\n"
     exit 1
     ;;
-  esac
+esac
 }
 
 #-------------------------------------------------------------------------------
