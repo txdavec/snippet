@@ -88,8 +88,8 @@ case $1 in
   case)
     cat << "EOF"
 case $VAR in
-x)
-  command...
+x | y)
+  echo "option x or y was passed"
   ;;
 *)
   echo "unkown option"
