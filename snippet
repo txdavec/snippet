@@ -7,6 +7,7 @@
 #-------------------------------------------------------------------------------
 function_ansible () { 
 case $1 in
+
   blockinfile)
     cat << EOF
 - name: insert/update "Match User" configuration block in /etc/ssh/sshd_config
@@ -17,6 +18,7 @@ case $1 in
       PasswordAuthentication no
 EOF
     ;;
+    
   command)
     cat << EOF
 - name: return motd to registered var
@@ -24,6 +26,7 @@ EOF
   register: mymotd
 EOF
     ;;
+    
   copy)
     cat << EOF
 - name: example copying file with owner and permissions
@@ -35,6 +38,7 @@ EOF
     mode: 0644"
 EOF
     ;;
+    
   cron)
     cat << EOF
 - name: Creates a cron file under /etc/cron.d
@@ -48,6 +52,7 @@ EOF
     cron_file: ansible_yum-autoupdate
 EOF
     ;;
+    
   file)
     cat << EOF
 - name :change file ownership, group and mode
@@ -63,6 +68,19 @@ EOF
     state: absent
 EOF
     ;;
+    
+  playbook)
+    cat << EOF
+- name: Example playbook
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: Do some work
+EOF
+    ;;
+    
   yum)
     cat << EOF
 - name: ensure a list of packages installed
@@ -75,6 +93,7 @@ EOF
     - httpd-tools
 EOF
     ;;
+    
   *)
     printf "unknown ansible snippet: $1\n"
     exit 1
